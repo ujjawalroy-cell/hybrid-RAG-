@@ -1,0 +1,302 @@
+[
+  {
+    "id": "C001",
+    "question": "what are natural resources and how are they classified based on origin, renewability, and availability?",
+    "ideal_answer": "Natural resources are naturally occurring materials utilized for human survival and economic gain[cite: 2]. By origin, they are classified as biotic (derived from living organisms like forests) or abiotic (derived from non-living entities like water)[cite: 2]. By renewability, they are divided into renewable (rapidly regenerating, e.g., solar energy) and non-renewable (finite, e.g., coal)[cite: 2]. By availability, they are categorized as exhaustible (prone to depletion) or inexhaustible (abundant, e.g., sunlight)[cite: 2].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C002",
+    "question": "what is resource management and what are its key principles and methods?",
+    "ideal_answer": "Resource management is the sustainable allocation, utilization, and preservation of natural resources to satisfy present needs without compromising future generations[cite: 2]. Its key principles focus on reduce, reuse, and recycle alongside balancing economic growth with ecological preservation[cite: 3]. Methods include management practices like afforestation, soil conservation, and rainwater harvesting, as well as conservation techniques like establishing protected areas and adopting renewable energy[cite: 3].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C003",
+    "question": "what are the main characteristics and potentials of renewable resources?",
+    "ideal_answer": "Renewable resources possess regenerative capacity to replenish naturally over time and are virtually inexhaustible when used responsibly[cite: 3]. Examples include solar, wind, and hydropower[cite: 3]. Their main potentials are enhancing energy security by reducing fossil fuel dependence, driving economic growth and job creation in green sectors, and mitigating climate change by lowering greenhouse gas emissions[cite: 3, 4].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C004",
+    "question": "how are non-renewable resources defined and what are their primary categories?",
+    "ideal_answer": "Non-renewable resources are finite natural assets that cannot regenerate within a human timescale due to an extremely slow formation rate[cite: 4]. They fall into two primary categories: fossil fuels (such as coal for power generation and petroleum for petrol and diesel) and minerals (such as iron ore for steel production and copper for electrical wiring)[cite: 4].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C005",
+    "question": "what is the ecological and socioeconomic importance of forest resources?",
+    "ideal_answer": "Ecologically, forests serve as biodiversity hotspots providing habitats for diverse species and act as carbon sinks absorbing CO2 to regulate climate[cite: 4, 5]. Socioeconomically, millions depend on forests for food, fuel, fodder, and rural livelihoods, while major industries like timber, paper, and pharmaceuticals rely directly on forest products[cite: 5].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C006",
+    "question": "how does land use in agriculture and grazing impact global food security?",
+    "ideal_answer": "Global food problems stem from hunger, malnutrition, and decreasing arable land due to urbanization and deforestation[cite: 5]. Land use in agriculture determines crop yields and food security, though intensive farming can degrade soil[cite: 5]. Land use in grazing provides fodder for livestock essential for milk, meat, and wool; however, overgrazing leads to soil erosion, desertification, and loss of biodiversity[cite: 5, 6].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C007",
+    "question": "what is driving global energy needs and how do renewable and non-renewable energy sources differ?",
+    "ideal_answer": "Increasing energy demand is driven by rapid global population growth, urbanization, industrialization, and modern energy-intensive lifestyles[cite: 6]. Renewable energy sources (solar, wind, hydro) are naturally replenishable, virtually inexhaustible, and have a low ecological footprint[cite: 6]. Non-renewable energy sources (coal, petroleum, nuclear) are finite, deplete with use, and significantly contribute to environmental pollution[cite: 6].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C008",
+    "question": "what are the core principles and strategies of equitable resource use and distribution?",
+    "ideal_answer": "Equitable resource distribution relies on principles of sustainability, inclusivity for marginalized groups, efficiency to minimize waste, and intergenerational equity[cite: 7]. Key strategies include implementing policy and legal frameworks to regulate usage and involving local communities in management to foster fair distribution and social equality[cite: 7].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C009",
+    "question": "why is environmental studies considered interdisciplinary and what broad areas does it cover?",
+    "ideal_answer": "Environmental studies is interdisciplinary because it integrates knowledge across fields to solve complex environmental issues holistically[cite: 7, 8]. It covers Natural Sciences (understanding ecosystems and natural processes), Social Sciences (examining human interactions, economics, and policies), and Humanities (exploring cultural, ethical, and philosophical dimensions)[cite: 8].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C010",
+    "question": "what are the main types and management stages of solid waste?",
+    "ideal_answer": "Solid waste includes household waste (food waste, packaging), industrial waste (chemicals, metals), and agricultural waste (crop residues, manure)[cite: 9, 10]. Solid Waste Management (SWM) consists of waste prevention, collection and segregation into biodegradable/recyclable streams, and recycling and reuse to protect public health and the environment[cite: 10].",
+    "source_session": "S2-S3"
+  },
+  {
+    "id": "C011",
+    "question": "what are the primary causes, effects, and implications of pollution incidents?",
+    "ideal_answer": "Pollution incidents are caused by industrial activities, agricultural runoffs (pesticides, fertilizers), and rapid urbanization[cite: 10]. Effects include environmental degradation (habitat destruction, biodiversity loss) and human health issues like respiratory or waterborne diseases[cite: 10]. Implications encompass economic losses from healthcare and reduced farm productivity, community displacement, and threats to long-term sustainability[cite: 10, 11].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C012",
+    "question": "what major problems arise during the resettlement and rehabilitation of displaced people?",
+    "ideal_answer": "Major problems include displacement causing loss of traditional livelihoods, disruption of cultural and community ties, inadequate financial compensation or support, lack of basic infrastructure (clean water, healthcare) in new locations, and potential ecological unsuitability of resettlement sites[cite: 11, 12].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C013",
+    "question": "how do global and local equity issues manifest in environmental decision-making?",
+    "ideal_answer": "Globally, Northern countries historically contributed most to pollution but Southern countries suffer higher climate vulnerability[cite: 12]. Locally, urban areas enjoy better access to resources and infrastructure compared to rural regions[cite: 12]. Additionally, women are underrepresented in decision-making despite being key resource managers in agriculture and water collection[cite: 12].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C014",
+    "question": "what is the debate between animal rights and environmental conservation ethics?",
+    "ideal_answer": "The animal rights perspective emphasizes the intrinsic value of animals and their right to exist without exploitation or harm[cite: 13]. The environmental conservation perspective focuses on overall ecosystem health, which may occasionally require actions like population management (culling or regulated hunting) to protect biodiversity or balance human-wildlife conflicts[cite: 13].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C015",
+    "question": "how are conservation ethics reflected in traditional Indian value systems and practices?",
+    "ideal_answer": "Indian tradition emphasizes harmony with nature through concepts like Prakriti (nature as sacred) and philosophical ethics like Ahimsa (non-violence) and Dharma (duty)[cite: 14]. Practices include protecting sacred groves (Devsthan), sustainable farming, and traditional rainwater harvesting systems such as Johads and Bawris[cite: 14].",
+    "source_session": "S3-S4"
+  },
+  {
+    "id": "C016",
+    "question": "what is the scope of environmental studies and what main areas does it encompass?",
+    "ideal_answer": "Environmental studies encompasses the study of natural resources and their sustainable use, ecosystem structures and biodiversity conservation, pollution control across air, water, and soil media, environmental ethics and climate change, human population dynamics and urbanization, and sustainable development strategies[cite: 137, 138].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C017",
+    "question": "what are the main biotic components of an ecosystem and what function does each perform?",
+    "ideal_answer": "The biotic components include producers (autotrophs like green plants and algae) that synthesize organic food using sunlight, consumers (heterotrophs like herbivores, carnivores, and top predators) that regulate populations and transfer energy up trophic levels, and decomposers/detritivores (bacteria, fungi, earthworms) that break down organic waste to recycle essential mineral nutrients back to the soil[cite: 139, 140].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C018",
+    "question": "how do edaphic factors influence plant growth and ecosystem productivity?",
+    "ideal_answer": "Edaphic (soil) factors affect plant life through soil texture and structure, which dictate water retention and root aeration[cite: 141]. Soil pH influences chemical nutrient availability and microbial health, while soil organic matter (humus) provides essential nutrients and improves structure[cite: 141]. Soil moisture and mineral nutrient concentrations (N, P, K) directly regulate vegetation types and overall primary productivity[cite: 141, 142].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C019",
+    "question": "what is Lindeman's 10% law of energy transfer in an ecosystem?",
+    "ideal_answer": "Lindeman's 10% law states that during the transfer of organic energy from one trophic level to the next, only about 10% of the energy is stored as new biomass and made available to the next higher level[cite: 153, 185]. The remaining 90% is lost to the environment as heat during metabolic processes, respiration, and non-consumed waste, which limits the total number of trophic levels a food chain can support[cite: 153, 185].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C020",
+    "question": "what is primary ecological succession and how does it proceed to a climax community?",
+    "ideal_answer": "Primary ecological succession occurs on newly formed, previously uninhabited, and bare surfaces such as exposed rock or volcanic lava[cite: 154]. It begins when pioneer species like lichens and mosses colonize the harsh environment to break down rock and create soil[cite: 154]. Intermediate species like grasses and shrubs then establish, eventually leading to a stable, mature climax community such as a forest[cite: 154, 155].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C021",
+    "question": "what are the three main types of ecological pyramids and how do they differ?",
+    "ideal_answer": "The three types are the pyramid of numbers (showing the total count of individual organisms at each trophic level), the pyramid of biomass (showing the total dry mass or living weight of organisms at each level), and the pyramid of energy (showing the rate of energy flow over time across trophic levels)[cite: 155, 156, 186, 187]. While pyramids of numbers and biomass can sometimes be inverted, the pyramid of energy is always upright due to energy loss at each step[cite: 186, 187].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C022",
+    "question": "what are the key criteria for designating a region as a biodiversity hotspot?",
+    "ideal_answer": "To qualify as a global biodiversity hotspot, a region must contain at least 1,500 species of vascular plants as endemics (found nowhere else on Earth) and must have lost at least 70% of its original natural habitat due to severe anthropogenic threats[cite: 160, 195].",
+    "source_session": "S3-S4"
+  },
+  {
+    "id": "C023",
+    "question": "what are the major productive and protective functions provided by forests?",
+    "ideal_answer": "Productively, forests supply fuel wood, industrial timber for construction and paper, and non-wood items like resins, honey, bamboo, and medicinal plants[cite: 169, 170]. Protectively, forest root networks bind topsoil to prevent erosion, aerial canopies reduce rain impact to lessen floods, and vegetation acts as windbreaks, dust filters, and noise barriers while safeguarding water reservoirs[cite: 170, 171].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C024",
+    "question": "how does deforestation lead to soil erosion and desertification?",
+    "ideal_answer": "Tree removal destroys the root systems that hold soil particles together and eliminates the leaf canopy that cushions rain impact[cite: 164, 170]. Unprotected topsoil gets rapidly washed away by surface water runoff or blown away by wind[cite: 181, 184]. Continuous loss of fertile topsoil, organic humus, and moisture retention converts productive land into arid, barren landscapes, driving desertification[cite: 164, 184].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C025",
+    "question": "what are the main causes and types of soil erosion?",
+    "ideal_answer": "Soil erosion is the detachment and removal of topsoil caused by water, wind, glaciers, and human actions[cite: 181]. It occurs as geological (natural) erosion, where slow natural removal balances soil formation, and accelerated erosion caused by deforestation, overgrazing, shifting cultivation, and mismanaged farming, where soil loss far outpaces soil regeneration[cite: 181].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C026",
+    "question": "what is an ecotone and what is meant by the edge effect?",
+    "ideal_answer": "An ecotone is a transition zone between two distinct ecosystems, such as a marshland between land and water or an estuary between river and sea[cite: 184]. The edge effect refers to the phenomenon where the ecotone exhibits higher population densities and greater biodiversity (a richer mixture of species) than either of the adjacent ecosystems on their own[cite: 184].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C027",
+    "question": "what is the difference between point source and non-point source water pollution?",
+    "ideal_answer": "Point source water pollution originates from a single, identifiable, and localized discharge pipe or spot, such as an industrial effluent pipe or an oil spillage from a tanker[cite: 220]. Non-point source water pollution enters water bodies from diffuse, widespread areas, such as agricultural field runoff carrying fertilizers or storm runoff carrying street contaminants[cite: 220].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C028",
+    "question": "what is cultural eutrophication and how does it affect aquatic life?",
+    "ideal_answer": "Cultural eutrophication occurs when excess nutrient inputs, mainly nitrates and phosphates from agricultural runoff and untreated sewage, accumulate in water bodies[cite: 221]. This triggers rapid algal blooms that block sunlight[cite: 221]. When the massive algal mass dies, microbial decomposers consume the dissolved oxygen, creating hypoxic or anoxic conditions that cause mass die-offs of fish and other aquatic species[cite: 221].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C029",
+    "question": "what is thermal pollution and how does warm water discharge affect aquatic ecosystems?",
+    "ideal_answer": "Thermal pollution is the degradation of water quality caused by the discharge of heated water from industrial cooling processes, thermal power plants, and nuclear reactors into natural water bodies[cite: 221, 223]. Warm water significantly reduces dissolved oxygen capacity, damages cellular structures of organisms, alters enzyme activities, disrupts hatching cycles, and escalates biochemical oxygen demand (BOD), causing suffocation in aquatic life[cite: 223].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C030",
+    "question": "what are the main health and environmental impacts of noise pollution and how can it be controlled?",
+    "ideal_answer": "Excessive noise causes physiological and emotional stress, including high blood pressure, hearing impairment, cardiovascular issues, sleep disruption, and anxiety[cite: 215]. Control measures include using efficient silencers and mufflers on machinery and vehicles, creating silence zones near schools and hospitals, installing greenbelts with dense trees (like Banyan or Neem) along highways and industrial borders to absorb sound, and enforcing legal noise limits[cite: 216].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C031",
+    "question": "what is meant by the multidisciplinary nature of environmental studies?",
+    "ideal_answer": "The multidisciplinary nature of environmental studies means it integrates knowledge across various fields—including biological, physical, earth, medical, and social sciences, along with technology and law—to understand and solve environmental issues holistically[cite: 135, 136, 137]. Biological sciences analyze ecosystems and flora/fauna; physical and chemical sciences explain atmospheric systems and pollution dynamics; social sciences and economics address policy and resource usage; and legal frameworks govern protection[cite: 135, 136, 137].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C032",
+    "question": "what is the difference between Gross Primary Productivity (GPP) and Net Primary Productivity (NPP)?",
+    "ideal_answer": "Gross Primary Productivity (GPP) is the total rate at which primary producers in an ecosystem synthesize organic matter through photosynthesis[cite: 185]. Net Primary Productivity (NPP) is the remaining organic matter after subtracting the energy consumed by producers during cellular respiration from GPP ($NPP = GPP - Respiration$)[cite: 185]. NPP represents the actual biomass available for heterotrophs, such as herbivores and decomposers[cite: 185].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C033",
+    "question": "what is a keystone species and why is it crucial for ecosystem stability?",
+    "ideal_answer": "A keystone species is an organism that plays a disproportionately large and vital role in maintaining the structural integrity, balance, and functioning of an ecosystem relative to its physical abundance[cite: 183]. If a keystone species is removed or declines, it triggers cascading negative effects across the food web and can alter the entire ecosystem structure[cite: 183].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C034",
+    "question": "what is secondary ecological succession and how does it differ from primary succession?",
+    "ideal_answer": "Secondary ecological succession occurs on land that was previously inhabited and possessed established soil, but was disturbed or cleared by events such as forest fires, flooding, or agricultural clearing[cite: 154]. Unlike primary succession, which starts on bare rock or lava without topsoil and requires pioneer lichens, secondary succession begins with intact soil layers and proceeds much faster toward a climax community[cite: 154].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C035",
+    "question": "what are the three levels of biodiversity measured by ecologists (alpha, beta, and gamma)?",
+    "ideal_answer": "Alpha diversity measures species richness within a single homogeneous area or community[cite: 190, 194]. Beta diversity measures the rate of change in species composition when comparing different habitats or ecosystems within a landscape[cite: 190, 195]. Gamma diversity represents the overall rate of species richness and diversity across large landscape gradients encompassing multiple ecosystems[cite: 190, 195].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C036",
+    "question": "what are the different categories of biodiversity values defined by resource economists?",
+    "ideal_answer": "Biodiversity values include consumptive use value (direct harvest/consumption of food, fuel, fodder), productive use value (commercial exploitation in industries like pharmaceuticals and paper), social value (cultural and religious traditions), ethical/moral value (inherent right of species to exist), aesthetic value (ecotourism and nature's beauty), and option value (preserving potential future benefits such as undiscovered medicines or crop genes)[cite: 192, 193, 194].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C037",
+    "question": "why is India recognized as a mega-diversity nation?",
+    "ideal_answer": "India is classified as a mega-diversity nation because it harbors around 7–8% of the world's recorded plant and animal species while occupying only 2.4% of global land area[cite: 123, 159, 195]. It features diverse climate zones and ecosystems, sits at a unique biogeographic crossroads, and displays high endemism, serving as a center of origin for over 166 crop species[cite: 123, 159, 195].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C038",
+    "question": "what are invasive exotic species and how do they threaten native biodiversity?",
+    "ideal_answer": "Invasive exotic (or alien) species are non-native organisms introduced into a new geographical area[cite: 197]. Lacking natural predators in the new environment, they spread rapidly and outcompete native flora and fauna for nutrients and space, altering biotic interactions[cite: 197]. Examples in India include Congress grass (Parthenium), Water hyacinth, and Lantana camara, which displace local species[cite: 197, 198].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C039",
+    "question": "what are the primary causes of man-wildlife conflicts?",
+    "ideal_answer": "Man-wildlife conflicts arise due to human encroachment into wildlife habitats, forest fragmentation, and shrinking natural ranges that force large animals (e.g., elephants, tigers) into agricultural fields[cite: 201]. Additional causes include shortages of wild food sources, injured or defensive animals protecting young, uncollected garbage attracting wildlife, and crop destruction leading to retaliatory killings by farmers[cite: 201].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C040",
+    "question": "what are the differences between primary and secondary air pollutants?",
+    "ideal_answer": "Primary air pollutants are emitted directly from recognizable sources into the atmosphere, such as carbon monoxide (CO) from incomplete combustion, sulfur dioxide (SO2) from coal power plants, and particulate matter (PM)[cite: 208]. Secondary air pollutants are not emitted directly; instead, they form in the atmosphere through chemical reactions between primary pollutants and ambient agents, such as ground-level ozone (O3) and Peroxyacetyl Nitrate (PAN)[cite: 208, 212].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C041",
+    "question": "what is carbon monoxide poisoning and how does it affect the human body?",
+    "ideal_answer": "Carbon monoxide (CO) poisoning occurs when inhaled CO enters the bloodstream and binds to hemoglobin[cite: 210]. Because hemoglobin's affinity for CO is significantly higher than for oxygen, it forms carboxyhemoglobin, which prevents red blood cells from transporting oxygen[cite: 210]. This leads to tissue hypoxia, causing dizziness, headaches, cardiac arrest, and potentially fatal asphyxiation[cite: 210].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C042",
+    "question": "what are bioaccumulation and biomagnification in aquatic ecosystems?",
+    "ideal_answer": "Bioaccumulation is the gradual accumulation and build-up of persistent chemicals or heavy metals (such as mercury or synthetic pesticides) within the tissue of a single organism faster than it can metabolize or excrete them[cite: 221]. Biomagnification occurs when these persistent contaminants increase in concentration at higher trophic levels across the food chain[cite: 221].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C043",
+    "question": "what are the primary causes and long-term health risks of nuclear radiation hazards?",
+    "ideal_answer": "Nuclear hazards stem from nuclear power plant accidents, radioactive waste disposal, nuclear weapon testing, and uranium/radium mining[cite: 217, 218]. Radioisotopes emit ionizing radiation (alpha, beta, gamma) that damages living tissue and cellular DNA[cite: 217]. Short-term effects include radiation sickness and tissue burns, while long-term exposure leads to genetic mutations, chromosomal aberrations, cancers (like leukemia), and birth defects[cite: 217, 218, 219].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C044",
+    "question": "what are the main methods for managing and storing radioactive nuclear waste?",
+    "ideal_answer": "Radioactive waste management follows three strategies based on activity level: 'delay and decay' stores weak/moderate waste in airtight containers deep underground until radioactivity falls[cite: 219]; 'concentrate and contain' mixes high-level waste with concrete/vitrified glass matrices inside sealed steel drums buried deep beneath land or ocean floors[cite: 219]; and 'dilute and disperse' releases low-level effluents into the environment after mixing them with inert material[cite: 219].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C045",
+    "question": "what are the major causes and ecological impacts of soil pollution?",
+    "ideal_answer": "Soil pollution is caused by agricultural overuse of chemical pesticides and synthetic fertilizers, improper disposal of toxic industrial effluents, dumping of domestic solid waste and sewage, acid rain, and heavy metal accumulation[cite: 224]. Impacts include loss of soil fertility and microflora, disruption of nitrogen and nutrient cycles, increased soil acidity, toxic chemical leaching into groundwater, and uptake of heavy metals into human food chains[cite: 225].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C046",
+    "question": "what is shifting cultivation (jhum) and how does it contribute to deforestation and soil erosion?",
+    "ideal_answer": "Shifting cultivation, or jhum, is a traditional agricultural practice where patches of forest are cleared, burned, and cultivated for a few years until soil fertility declines[cite: 165, 174]. Farmers then abandon the plots to clear new forest areas[cite: 165, 174]. Driven by population growth, shortened fallow cycles prevent forests from regenerating, leading to widespread loss of tree canopy, exposed topsoil, accelerated soil erosion, and land degradation[cite: 174, 184].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C047",
+    "question": "what are the key principles and methods of watershed management?",
+    "ideal_answer": "Integrated Watershed Management (IWM) holistically manages land, water, and biological resources within a drainage basin to balance human and ecosystem needs[cite: 84]. Its core methods include soil and water conservation practices such as contour plowing, terracing, and afforestation to increase groundwater recharge[cite: 84]. It also incorporates check dams for flood and drought control alongside active local community participation[cite: 84].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C048",
+    "question": "what is an ecological niche and how does it differ from a habitat?",
+    "ideal_answer": "A habitat is the specific physical place or environment where an organism lives[cite: 140, 183]. An ecological niche is the functional role and position a species occupies within its ecosystem, including its behaviors, resource use, environmental tolerances, and interactions with other biotic and abiotic factors[cite: 183]. While a habitat is an organism's 'address', a niche is its 'profession'[cite: 183].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C049",
+    "question": "what is the dose-response relationship in environmental toxicology?",
+    "ideal_answer": "The dose-response relationship describes the quantitative association between the concentration or amount of a physical, chemical, or biological agent (dose) to which an organism is exposed and the pattern or severity of the resulting biological effect (response)[cite: 46, 130]. It helps establish safety thresholds, toxic limits, and lethal dosages for environmental pollutants and pharmaceuticals[cite: 46, 130].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C050",
+    "question": "what is the IUCN Red List and what main categories does it use to classify species extinction risk?",
+    "ideal_answer": "The IUCN Red List is a global catalog evaluating the conservation status and extinction risk of plant and animal species[cite: 199]. It classifies species into specific risk categories, including Extinct (no known living individuals), Critically Endangered, Endangered, Vulnerable, Rare, and Insufficiently Known[cite: 199]. Species categorized as Critically Endangered, Endangered, or Vulnerable are collectively considered threatened with extinction[cite: 199].",
+    "source_session": "S4"
+  }
+]
