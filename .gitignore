@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Eval run outputs
+Evals/results/*.json
+.deepeval/

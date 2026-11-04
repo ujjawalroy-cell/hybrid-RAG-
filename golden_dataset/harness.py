@@ -70,3 +70,58 @@ def print_summary(title, summary):
         avg = f"{s['avg_score']:.2f}" if s["avg_score"] == s["avg_score"] else "nan"   # nan != nan
         print(f"  {name:<26} pass_rate={s['pass_rate']:5.0f}%  avg={avg}  n={s['n']}")
     print("=" * 60)
+
+# ---------------------------------------------------------------------------
+# Regression helpers: golden cleaning + baseline comparison
+# ---------------------------------------------------------------------------
+import hashlib
+import re
+
+_CITE_RE = re.compile(r"\s*\[cite:[^\]]*\]")
+
+
+def strip_cite_markers(text):
+    """Remove '[cite: 2, 3]' markers; they point at pages outside the corpus."""
+    return _CITE_RE.sub("", text or "").strip()
+
+
+def file_sha256(path):
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()[:16]
+
+
+def load_baseline(path):
+    with open(path, "r") as f:
+        return json.load(f)
+
+
+def save_baseline(path, summary, config):
+    """Persist per-metric avg_score / pass_rate plus the config that produced them."""
+    metrics = {
+        name: {"avg_score": s["avg_score"], "pass_rate": s["pass_rate"], "n": s["n"]}
+        for name, s in summary.items()
+    }
+    with open(path, "w") as f:
+        json.dump({"config": config, "metrics": metrics}, f, indent=2)
+
+
+def compare_to_baseline(summary, baseline, tolerance=0.05, pass_rate_drop=10.0):
+    """One row per baseline metric: {metric, baseline, current, delta, regressed}.
+
+    A metric regresses when its avg score drops by more than `tolerance`, or its
+    pass rate drops by more than `pass_rate_drop` points. A baseline metric that
+    is missing from the current run counts as regressed. Metrics are never pooled.
+    """
+    base_metrics = baseline.get("metrics", baseline)
+    rows = []
+    for name, b in base_metrics.items():
+        cur = summary.get(name)
+        if cur is None:
+            rows.append({"metric": name, "baseline": b["avg_score"], "current": None,
+                         "delta": None, "regressed": True})
+            continue
+        delta = cur["avg_score"] - b["avg_score"]
+        regressed = (delta < -tolerance) or (cur["pass_rate"] < b["pass_rate"] - pass_rate_drop)
+        rows.append({"metric": name, "baseline": b["avg_score"], "current": cur["avg_score"],
+                     "delta": delta, "regressed": bool(regressed)})
+    return rows

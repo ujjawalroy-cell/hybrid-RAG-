@@ -16,6 +16,9 @@ ollama serve                          # required; also: ollama pull nomic-embed-
 python main.py                        # ingest pdfs/ → chunk → index → sample query → answer
 python -m retrievals.retrieval "your query" --rerank cross_encoder   # retrieval CLI (or --rerank llm)
 python -m citations.generate          # smoke-test generate_answer with a canned context
+python Evals/run_regression.py --suite all --update-baseline   # record eval baseline (needs Ollama + synced index)
+python Evals/run_regression.py --suite all    # regression check; exit 1 if a metric drops
+deepeval test run Evals/test_regression.py    # pytest smoke subset
 uvicorn backend.app:app --port 8000   # FastAPI: /v1/ask, /v1/documents, /v1/strategies, /v1/ingest, /health
 streamlit run frontend/web.py         # UI; talks to the backend at http://127.0.0.1:8000
 ```
@@ -38,7 +41,7 @@ Things that need several files to understand:
 
 - `retrival.py` (root, misspelled) is an older copy of `retrievals/retrieval.py`. Put retrieval changes in `retrievals/retrieval.py`.
 - `main.py` uses flat imports (`from Ingest import ...`, `from retrival import ...`) that only work if the subfolders are on `sys.path`; the packages (`chunking/`, `retrievals/`, `citations/` `__init__.py` star-re-export their modules) are imported by package name in `backend/app.py`, which inserts the repo root into `sys.path`. Expect `python main.py` to need import fixes.
-- `Evals/Eval_retrieval.py` is an unfinished DeepEval script: it imports `from retrieval import rerank`, reads `goldens/retriever_goldens.json` (the actual file is `golden_dataset/gold_retrieval.json`), and uses an OpenAI judge model. `golden_dataset/harness.py` holds shared helpers (`load_goldens`, `summarize_by_metric`). There are no latency, cost, or reliability evals despite what other docs may imply.
+- `Evals/` is a DeepEval regression suite using a local Ollama judge (`EVAL_JUDGE_MODEL`, default `llama3.2`): `Eval_retrieval.py` (Contextual Recall/Precision/Relevancy), `Eval_generation.py` (Faithfulness/Answer Relevancy; confidence-gate refusals counted separately), `run_regression.py` (CLI, compares to `Evals/baseline.json`, exit 1 on regression), `test_regression.py` (pytest smoke). Goldens are `golden_dataset/gold_retrieval.json` (no chunk-id labels or should-refuse cases, so no hit-rate/MRR). `golden_dataset/harness.py` holds shared helpers. There are no latency, cost, or reliability evals.
 - `Hybrid_search_with_RAG/` (nested folder) only contains a stub README.
 - `chroma_db/`, `bm25_index.pkl`, and `.env` are tracked in git.
 - No `main` branch exists; the only branch is `master`. Slash commands such as `/Create-spec` expect `main` and `.claude/specs/`.

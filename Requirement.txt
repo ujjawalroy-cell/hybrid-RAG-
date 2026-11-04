@@ -31,3 +31,5 @@ langchain-ollama
 langchain-chroma
 chromadb
 python-dotenv
+deepeval
+pytest
