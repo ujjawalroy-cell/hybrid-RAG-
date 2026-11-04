@@ -1,0 +1,326 @@
+[
+  {
+    "id": "C001",
+    "question": "What problem does the Transformer architecture aim to solve compared with recurrent sequence models?",
+    "ideal_answer": "Recurrent models process sequence positions step by step, limiting parallelization within a training example, especially for long sequences. The Transformer replaces recurrence with attention-based computation, enabling substantially more parallelization while modeling dependencies across sequence positions[cite: 2].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C002",
+    "question": "What is the central architectural idea of the Transformer?",
+    "ideal_answer": "The Transformer is a sequence-transduction architecture based entirely on attention mechanisms, dispensing with recurrence and convolution. It uses stacked self-attention and position-wise fully connected layers in encoder and decoder stacks[cite: 1, 3].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C003",
+    "question": "What are the main components of a Transformer encoder layer in the original paper?",
+    "ideal_answer": "Each encoder layer contains a multi-head self-attention sublayer followed by a position-wise fully connected feed-forward network. Residual connections and layer normalization are applied around each sublayer[cite: 3].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C004",
+    "question": "How does the original Transformer decoder differ from the encoder?",
+    "ideal_answer": "The decoder has the encoder's self-attention and feed-forward sublayers plus a third sublayer that attends to encoder outputs. Its self-attention is masked so a position cannot attend to subsequent output positions, preserving autoregressive generation[cite: 3].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C005",
+    "question": "What is scaled dot-product attention and how is it calculated?",
+    "ideal_answer": "Scaled dot-product attention computes query-key dot products, divides them by the square root of the key dimension, applies softmax to obtain weights, and uses those weights to combine the value vectors. The paper expresses it as Attention(Q,K,V) = softmax(QKᵀ/√d_k)V[cite: 4].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C006",
+    "question": "Why does the Transformer scale query-key dot products by the square root of the key dimension?",
+    "ideal_answer": "For large key dimensions, dot products can become large in magnitude and push softmax into regions with very small gradients. Dividing by √d_k helps counteract this effect[cite: 4].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C007",
+    "question": "What is the purpose of multi-head attention?",
+    "ideal_answer": "Multi-head attention performs attention through several learned projections in parallel, then concatenates and projects their outputs. This lets the model attend to information from different representation subspaces and positions[cite: 4-5].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C008",
+    "question": "How many attention heads did the original Transformer use, and what were the per-head dimensions?",
+    "ideal_answer": "The original model used eight parallel attention heads. With model dimension 512, each head used key and value dimensions of 64[cite: 5].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C009",
+    "question": "What are the three attention patterns used in the original Transformer?",
+    "ideal_answer": "The paper describes encoder-decoder attention, encoder self-attention, and decoder self-attention. Encoder-decoder attention queries encoder outputs from decoder states; encoder self-attention relates input positions; decoder self-attention attends only to current and earlier output positions[cite: 5].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C010",
+    "question": "How does the Transformer represent token order without recurrence?",
+    "ideal_answer": "The Transformer adds positional encodings to token embeddings so the model can use information about token positions. The paper considers sinusoidal positional encodings and notes that learned positional embeddings produce nearly identical results in its experiments[cite: 6].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C011",
+    "question": "What translation results did the original Transformer report?",
+    "ideal_answer": "The Transformer achieved 28.4 BLEU on WMT 2014 English-to-German, improving the previous best results by more than 2 BLEU. On WMT 2014 English-to-French, it reported a single-model BLEU score of 41.8 after 3.5 days of training on eight GPUs[cite: 1].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C012",
+    "question": "What is one computational trade-off of self-attention noted in the Transformer paper?",
+    "ideal_answer": "Self-attention has constant sequential operations and a maximum path length of O(1), but its per-layer complexity is O(n²·d) for sequence length n and representation dimension d. Thus, it offers parallelism and short paths but quadratic dependence on sequence length in the stated complexity comparison[cite: 5].",
+    "source_session": "S1"
+  },
+  {
+    "id": "C013",
+    "question": "What is GPT-3's main contribution in the paper Language Models are Few-Shot Learners?",
+    "ideal_answer": "The paper studies scaling language models and shows that a 175-billion-parameter autoregressive model, GPT-3, can perform many tasks in zero-shot, one-shot, and few-shot settings by receiving task instructions or demonstrations in text, without gradient updates or fine-tuning at evaluation time[cite: 1].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C014",
+    "question": "What does in-context learning mean in the GPT-3 paper?",
+    "ideal_answer": "In-context learning is the process in which a pretrained language model is given a natural-language task description and/or a few demonstrations in its input, then completes new examples by predicting subsequent tokens without updating its weights[cite: 3-4].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C015",
+    "question": "How does few-shot learning differ from fine-tuning in the GPT-3 experiments?",
+    "ideal_answer": "In few-shot learning, task examples are included in the prompt and the model's parameters are not updated. Fine-tuning instead uses task-specific training data to update model parameters[cite: 1, 6].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C016",
+    "question": "Why did the GPT-3 authors argue that task-specific fine-tuning datasets are a limitation?",
+    "ideal_answer": "Strong performance in the pretraining-plus-fine-tuning paradigm often requires thousands to hundreds of thousands of labeled examples for each task. Collecting such data repeatedly limits the range of tasks that can practically be supported[cite: 3].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C017",
+    "question": "What model size did GPT-3 use, and how did it compare with earlier non-sparse language models according to the paper?",
+    "ideal_answer": "GPT-3 had 175 billion parameters, which the paper described as ten times the size of any previous non-sparse language model at that time[cite: 1].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C018",
+    "question": "Which kinds of tasks did GPT-3 perform well on in the paper?",
+    "ideal_answer": "The paper reports strong results across tasks including translation, question answering, cloze tasks, and some on-the-fly reasoning or adaptation tasks such as unscrambling words, using a novel word in a sentence, and three-digit arithmetic[cite: 1].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C019",
+    "question": "Did GPT-3 perform equally well on every benchmark?",
+    "ideal_answer": "No. The authors explicitly report that GPT-3 still struggled on some datasets and tasks, and that some evaluations had methodological issues related to possible overlap with large web training corpora[cite: 1].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C020",
+    "question": "What training data did the GPT-3 paper use at a high level?",
+    "ideal_answer": "The paper describes a mixture of text sources, including filtered Common Crawl, WebText2, books, and Wikipedia. The authors discuss filtering and weighting sources as part of constructing the training mixture[cite: 8-9].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C021",
+    "question": "What concern did GPT-3's authors raise about benchmark contamination?",
+    "ideal_answer": "Because large language models train on extensive web corpora, benchmark test material may have appeared in the training data. The paper investigates contamination and cautions that overlap can complicate interpretation of benchmark performance[cite: 29-32].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C022",
+    "question": "What limitations or broader impacts does the GPT-3 paper discuss?",
+    "ideal_answer": "The paper discusses limitations in task performance and evaluation, as well as broader impacts including potential misuse, fairness and representation biases, and energy usage. It does not claim that scaling removes these concerns[cite: 33-39].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C023",
+    "question": "What is the difference between zero-shot, one-shot, and few-shot evaluation?",
+    "ideal_answer": "Zero-shot evaluation provides the task description without demonstrations; one-shot provides one example; few-shot provides a small number of examples in the prompt. In the GPT-3 setup, these examples guide the model at inference time without parameter updates[cite: 10].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C024",
+    "question": "What relationship between model scale and in-context learning did GPT-3 report?",
+    "ideal_answer": "The paper reports that larger models generally make more effective use of in-context information, with stronger few-shot performance as model size increases across many evaluated tasks, although performance is not uniformly strong on every task[cite: 4, 10-11].",
+    "source_session": "S2"
+  },
+  {
+    "id": "C025",
+    "question": "What is LoRA and what problem is it designed to address?",
+    "ideal_answer": "Low-Rank Adaptation (LoRA) adapts a pretrained model by freezing its original weights and adding trainable low-rank matrices. It reduces the number of trainable parameters and the memory burden compared with updating all model parameters during full fine-tuning[cite: 1-2].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C026",
+    "question": "How does LoRA represent a weight update mathematically?",
+    "ideal_answer": "For a pretrained weight matrix W₀, LoRA represents the update as ΔW = BA, where A and B are trainable matrices and the rank r is much smaller than the original matrix dimensions. The effective weight becomes W₀ + BA while W₀ remains frozen[cite: 3-4].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C027",
+    "question": "Which parameters are trained and which are frozen in LoRA?",
+    "ideal_answer": "The pretrained weight matrix W₀ is frozen and does not receive gradient updates. The low-rank matrices A and B are trainable and learn the task-specific weight update[cite: 4].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C028",
+    "question": "Why is LoRA more parameter-efficient than full fine-tuning?",
+    "ideal_answer": "Full fine-tuning learns a separate update for all pretrained parameters for each task. LoRA encodes the update with a much smaller parameter set, potentially making the trainable parameter count dramatically smaller; the paper's GPT-3 example reports up to a 10,000-fold reduction in trainable parameters[cite: 1-2].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C029",
+    "question": "How does LoRA avoid adding inference latency after deployment?",
+    "ideal_answer": "The learned low-rank update BA can be merged into the frozen weight matrix, producing W = W₀ + BA. Inference can then use the merged weight as a normal weight matrix, without an extra adapter computation[cite: 2, 4].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C030",
+    "question": "What initialization does the LoRA paper use for its low-rank matrices?",
+    "ideal_answer": "The paper initializes A with a random Gaussian distribution and initializes B to zero, making the initial update ΔW = BA equal to zero. It also scales the update by a factor based on α/r[cite: 4].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C031",
+    "question": "Where can LoRA be applied in a Transformer?",
+    "ideal_answer": "LoRA can be applied to selected weight matrices in a neural network. For a Transformer, the paper identifies query, key, value, and output projection matrices in self-attention, as well as matrices in the feed-forward module, as possible targets[cite: 5].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C032",
+    "question": "What did LoRA experiments suggest about the rank needed for adaptation?",
+    "ideal_answer": "In the reported WikiSQL and MultiNLI experiments, relatively small ranks, sometimes as low as r=1 for adapting both query and value projections, performed competitively. The authors caution that a small rank should not be expected to work for every task or dataset[cite: 10].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C033",
+    "question": "How does LoRA compare with adapter layers in terms of inference?",
+    "ideal_answer": "Adapter layers add extra computations in the model path and can increase inference latency. LoRA's low-rank update can be merged into the original weights at deployment, avoiding additional inference latency compared with a fully fine-tuned model[cite: 2-3].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C034",
+    "question": "What is an important limitation of using a very small LoRA rank?",
+    "ideal_answer": "A small rank restricts the space of possible weight updates and may not be sufficient for every downstream task. The paper gives a different-language adaptation scenario as an example where a much larger rank or full fine-tuning could outperform a small-rank update[cite: 10].",
+    "source_session": "S3"
+  },
+  {
+    "id": "C035",
+    "question": "What problem does the InstructGPT paper aim to address?",
+    "ideal_answer": "The paper addresses the gap between predicting the next token and following a user's instructions helpfully and safely. Language models may generate untruthful, toxic, unhelpful, or instruction-ignoring outputs, so the authors investigate fine-tuning with human feedback to better align behavior with user intent[cite: 1-2].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C036",
+    "question": "What are the three main stages used to train InstructGPT?",
+    "ideal_answer": "The method has three stages: supervised fine-tuning (SFT) on human-written demonstrations, reward-model training using human rankings of model outputs, and reinforcement learning using proximal policy optimization (PPO) to optimize against the reward model[cite: 2-3].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C037",
+    "question": "What data is used during supervised fine-tuning in the InstructGPT pipeline?",
+    "ideal_answer": "The authors collect prompts and demonstrations written by human labelers or drawn from prompts submitted through the OpenAI API. They fine-tune GPT-3 on these demonstrations to establish a supervised baseline for desired behavior[cite: 2-3].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C038",
+    "question": "How is the reward model trained in InstructGPT?",
+    "ideal_answer": "Human labelers compare or rank outputs generated for prompts. The reward model is trained on these comparisons to predict which outputs labelers would prefer, and its score is then used as a reward signal during reinforcement learning[cite: 2-3].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C039",
+    "question": "What role does PPO play in training InstructGPT?",
+    "ideal_answer": "PPO fine-tunes the supervised model to maximize reward-model scores. The paper also uses a KL penalty relative to the supervised model to limit excessive deviation and experiments with mixing pretraining gradients to reduce regressions on public NLP tasks[cite: 9].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C040",
+    "question": "What does the InstructGPT paper mean by helpful, honest, and harmless?",
+    "ideal_answer": "Helpful means assisting the user with their task; honest means not fabricating information or misleading the user; harmless means avoiding physical, psychological, or social harm to people or the environment. These criteria frame the paper's discussion of alignment[cite: 2].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C041",
+    "question": "What human-evaluation result did the InstructGPT paper report about model size?",
+    "ideal_answer": "On the authors' prompt distribution, outputs from the 1.3-billion-parameter InstructGPT model were preferred to outputs from the 175-billion-parameter GPT-3, despite being over 100 times smaller. The paper attributes the comparison to differences in human-feedback fine-tuning, not model architecture[cite: 1, 3].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C042",
+    "question": "How did InstructGPT affect truthfulness and hallucination in the reported evaluations?",
+    "ideal_answer": "The paper reports that InstructGPT answered TruthfulQA questions truthfully and informatively about twice as often as GPT-3. On closed-domain tasks, it made up information absent from the input less often, reporting a 21% versus 41% hallucination rate for InstructGPT and GPT-3 respectively[cite: 3].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C043",
+    "question": "Did InstructGPT eliminate all undesirable behavior?",
+    "ideal_answer": "No. The authors state that InstructGPT still makes simple mistakes, can fail to follow instructions, can fabricate facts, may give overly long hedging answers, and may fail to detect false premises[cite: 4].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C044",
+    "question": "What is the alignment tax discussed in the InstructGPT paper?",
+    "ideal_answer": "The alignment tax refers to performance regressions on some public NLP benchmarks that can occur during alignment-focused fine-tuning. The authors report that mixing PPO updates with pretraining-distribution updates (PPO-ptx) can greatly reduce these regressions without sacrificing labeler preference scores[cite: 3-4].",
+    "source_session": "S4"
+  },
+  {
+    "id": "C045",
+    "question": "How does the essay connect Gojo Satoru's Infinity to Zeno's paradox?",
+    "ideal_answer": "The essay compares Infinity's repeated halving of the distance between an attacker and Gojo with Zeno's paradox of Achilles and the tortoise. Both involve infinitely many subdivisions before arrival, raising the question of whether infinitely many steps can be completed[cite: 1-2].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C046",
+    "question": "What does the geometric series 1/2 + 1/4 + 1/8 + ... demonstrate in the essay?",
+    "ideal_answer": "The series converges to 1 even though it contains infinitely many terms. Its partial sums are Sₙ = 1 − 1/2ⁿ, which approach 1 as n increases. The essay uses this to explain why infinitely many subdivisions can have a finite total distance or time[cite: 2-3].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C047",
+    "question": "How does the essay resolve Zeno's paradox using a geometric series?",
+    "ideal_answer": "The essay argues that the infinitely many steps can have a finite total duration because each successive step takes half as long as the previous one. Infinity describes how the journey is divided, rather than proving that the journey cannot be completed[cite: 3].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C048",
+    "question": "What is Lebesgue measure, as introduced in the essay?",
+    "ideal_answer": "The essay describes Lebesgue measure as a framework assigning a non-negative number representing total length to sufficiently well-behaved subsets of the real line. Its outer-measure construction covers a set with countably many open intervals and takes the infimum of their total lengths[cite: 4].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C049",
+    "question": "Why does the essay say that the set of Zeno subdivision points has measure zero?",
+    "ideal_answer": "The subdivision points form a countable set. The essay covers each point with an interval and constructs a countable cover whose total length can be made smaller than any positive ε. Since the total covering length can be arbitrarily small, the set has Lebesgue measure zero[cite: 4].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C050",
+    "question": "What distinction does the essay make between the number of points in a set and its length?",
+    "ideal_answer": "The essay emphasizes that a set can contain infinitely many points yet have zero Lebesgue measure. The cardinality of a set and the length it occupies are different notions[cite: 4].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C051",
+    "question": "How does the essay use a kernel-induced metric to interpret Infinity?",
+    "ideal_answer": "The essay proposes a distorted geometry in which a metric factor grows near Gojo, making distances near him effectively larger in that geometry. It contrasts this with ordinary flat-space Lebesgue measure and argues that the same points can be assessed differently under different notions of distance[cite: 5-6].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C052",
+    "question": "According to the essay, how does Sukuna's World Cutting Slash bypass Infinity?",
+    "ideal_answer": "The essay's fictional-mathematical interpretation says Mahoraga adapts by targeting the space containing Gojo rather than Gojo directly. Sukuna then modifies Dismantle to target space itself, which the essay describes as severing the spatial fabric and making the metric undefined across the cut[cite: 7].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C053",
+    "question": "What assumption about the metric is central to the essay's interpretation of Infinity?",
+    "ideal_answer": "The essay treats continuity of the metric factor across space as central to Infinity's operation. In its interpretation, an attack that destroys that continuity can bypass the distance-based barrier rather than traversing the subdivided distance[cite: 7].",
+    "source_session": "S5"
+  },
+  {
+    "id": "C054",
+    "question": "Is the essay's mathematical model of Gojo's Infinity a statement about real-world physics?",
+    "ideal_answer": "No. The document is a mathematical interpretation of a fictional technique from Jujutsu Kaisen. Its geometric-series and measure-theory discussions use established mathematical concepts, while the proposed metric and World Cutting Slash explanation are part of the essay's fictional model[cite: 1, 5-7].",
+    "source_session": "S5"
+  }
+]
