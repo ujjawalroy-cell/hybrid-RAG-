@@ -1,0 +1,9 @@
+python-multipart      # FastAPI UploadFile/Form fails without it
+langchain-core
+langchain-community
+langchain-text-splitters
+pypdf                 # PyPDFLoader
+tiktoken              # TokenTextSplitter
+unstructured          # HTML/Markdown loaders (heavy, so consider dropping those types)
+streamlit
+pandas
