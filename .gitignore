@@ -12,3 +12,6 @@ wheels/
 # Eval run outputs
 Evals/results/*.json
 .deepeval/
+
+# secrets
+.env
