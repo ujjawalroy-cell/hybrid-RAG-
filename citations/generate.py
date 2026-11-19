@@ -67,9 +67,10 @@ def generate_answer(
     context_text = format_context(retrieved_results)
 
     default_system = (
-        "You are an accurate, helpful AI assistant. Answer the question based on the provided "
-        "context. If the context does not contain enough information to answer the question, "
-        "state that clearly. Keep the answer well-structured and concise."
+        "You are an accurate, helpful AI assistant. Answer the question using ONLY the provided "
+        "context. Do not add outside knowledge, examples or background that the context does not "
+        "state. If the context only partly answers the question, answer that part and say what is "
+        "missing. If it does not answer at all, say so. Keep the answer concise."
     )
     system = system_instruction or default_system
 
@@ -80,7 +81,8 @@ def generate_answer(
 {query}
 
 [Instructions]
-Provide a detailed and direct answer based on the context above. Cite relevant sections or documents if applicable.
+Answer in 3-5 sentences using only facts stated in the context above. Put the [chunk id] of the
+passage that supports each claim right after it. Do not add anything the context does not say.
 
 [Answer]
 """
@@ -93,6 +95,7 @@ Provide a detailed and direct answer based on the context above. Cite relevant s
                 "system": system,
                 "prompt": prompt,
                 "stream": False,
+                "options": {"temperature": 0},  # deterministic, stays closer to the context
             },
             timeout=timeout,
         )
@@ -117,16 +120,36 @@ def rag_answer(
     model: str = DEFAULT_MODEL,
     filter_document: Optional[str] = None,
     strategy: Optional[str] = None,
+    use_guardrails: bool = True,
 ) -> dict:
     """
     End-to-end RAG execution:
-    1. Retrieves relevant passages (Hybrid dense + sparse or dense-only)
+    0. Input guardrail: blocks prompt injection / bad length, redacts PII in the query
+    1. Retrieves relevant passages (Hybrid dense + sparse + exact, or dense-only)
+    1b. Context guardrail: drops chunks that carry indirect prompt injection
     2. Computes retrieval confidence
     3. Guards against hallucination if confidence < retrieval_threshold
     4. Generates cited answer via local Ollama LLM
+    5. Output guardrail: blocks system-prompt leaks, redacts PII, flags missing citations
     """
     import math
     from retrievals.retrieval import hybrid_retrieve, dense_search, hydrate
+    import guardrails as gr
+
+    guard_report: dict = {}
+    if use_guardrails:
+        in_check = gr.check_input(query)
+        guard_report["input"] = in_check.to_dict()
+        if not in_check.allowed:
+            return {
+                "query": query,
+                "status": "blocked",
+                "answer": f"Request blocked by input guardrail: {', '.join(in_check.violations)}.",
+                "chunks_used": [],
+                "retrieval_confidence": 0.0,
+                "guardrails": guard_report,
+            }
+        query = in_check.text  # PII-redacted query is what reaches retrieval + LLM
 
     if use_sparse:
         chunks = hybrid_retrieve(
@@ -148,6 +171,10 @@ def rag_answer(
             for d in dense_raw if d["id"] in content
         ]
 
+    if use_guardrails:
+        chunks, ctx_check = gr.filter_context(chunks)
+        guard_report["context"] = ctx_check.to_dict()
+
     if not chunks:
         return {
             "query": query,
@@ -155,6 +182,7 @@ def rag_answer(
             "answer": "No relevant context found in the knowledge base.",
             "chunks_used": [],
             "retrieval_confidence": 0.0,
+            "guardrails": guard_report,
         }
 
     top_score = chunks[0].get("rerank_score", chunks[0].get("score", 0.0))
@@ -171,15 +199,24 @@ def rag_answer(
             "answer": f"Retrieval confidence ({confidence:.2f}) is below threshold ({retrieval_threshold:.2f}). Refusing to answer to avoid hallucination.",
             "chunks_used": chunks,
             "retrieval_confidence": confidence,
+            "guardrails": guard_report,
         }
 
     answer = generate_answer(query, chunks, model=model)
+    status = "answered"
+    if use_guardrails:
+        out_check = gr.check_output(answer, chunks)
+        guard_report["output"] = out_check.to_dict()
+        answer = out_check.text
+        if not out_check.allowed:
+            status = "blocked"
     return {
         "query": query,
-        "status": "answered",
+        "status": status,
         "answer": answer,
         "chunks_used": chunks,
         "retrieval_confidence": confidence,
+        "guardrails": guard_report,
     }
 
 

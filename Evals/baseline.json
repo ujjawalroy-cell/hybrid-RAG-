@@ -7,31 +7,34 @@
     "chunk_size": 1000,
     "chunk_overlap": 150,
     "rrf_weights": "0.7/0.3",
-    "embedding_model": "nomic-embed-text"
+    "embedding_model": "nomic-embed-text",
+    "exact_weight": 0.5,
+    "exact_match_boost": 1.0,
+    "guardrails": true
   },
   "metrics": {
     "Contextual Recall": {
-      "avg_score": 0.9027170800525639,
-      "pass_rate": 94.0,
+      "avg_score": 0.9322358359448143,
+      "pass_rate": 96.0,
       "n": 50
     },
     "Contextual Precision": {
-      "avg_score": 0.9650555555555556,
-      "pass_rate": 96.0,
+      "avg_score": 0.9763559218559219,
+      "pass_rate": 98.0,
       "n": 50
     },
     "Contextual Relevancy": {
-      "avg_score": 0.767747802668152,
-      "pass_rate": 96.0,
+      "avg_score": 0.7477846944735315,
+      "pass_rate": 98.0,
       "n": 50
     },
     "Faithfulness": {
-      "avg_score": 0.5621220049791479,
-      "pass_rate": 59.183673469387756,
+      "avg_score": 0.6588899629115715,
+      "pass_rate": 65.3061224489796,
       "n": 49
     },
     "Answer Relevancy": {
-      "avg_score": 0.9537157287157286,
+      "avg_score": 0.9593537414965986,
       "pass_rate": 95.91836734693878,
       "n": 49
     }

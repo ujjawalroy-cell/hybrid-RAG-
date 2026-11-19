@@ -12,6 +12,8 @@ import chunking  # reuses get_collection(), load_bm25(), tokenize(), embed_query
 RRF_K = 60                   # standard RRF damping constant
 DENSE_WEIGHT = 0.7
 SPARSE_WEIGHT = 0.3
+EXACT_WEIGHT = 0.5           # exact-phrase hits are high precision, so they weigh in strongly
+EXACT_MATCH_BOOST = 1.0      # added to the rerank score of chunks that contain an exact match
 FUSION_TOP_N = 20            # candidates passed into the reranker
 FINAL_TOP_N = 5              # chunks returned after reranking
   
@@ -99,6 +101,71 @@ def sparse_search(
     return results
  
  
+# --------------------------------------------------------------- 2b) exact
+_QUOTED = re.compile(r'"([^"]+)"|“([^”]+)”')
+# identifier-like tokens: contain a digit/underscore (ISO_9001, HTTP404), ALL-CAPS acronyms (NASA),
+# or joined by . - : / (v2.1, AC/DC, chunk::id)
+_IDENTIFIER = re.compile(r"\b\w+(?:[.\-:/]\w+)+\b|\b(?=\w*[\d_])\w{3,}\b|\b[A-Z]{2,}\b")
+
+
+def extract_exact_terms(query: str) -> list[str]:
+    """
+    Pick the parts of a query that should match verbatim:
+      * anything in double quotes  -> "renewable energy sources"
+      * identifier-like tokens     -> ISO_9001, HTTP404, v2.1, AC/DC, NASA
+    Returns lower-cased, de-duplicated terms (empty list = nothing to match exactly).
+    """
+    terms = [a or b for a, b in _QUOTED.findall(query)]
+    terms += _IDENTIFIER.findall(_QUOTED.sub(" ", query))
+    out: list[str] = []
+    for t in (t.strip().lower() for t in terms):
+        if t and t not in out:
+            out.append(t)
+    return out
+
+
+def exact_search(
+    query: str,
+    k: int = 10,
+    filter_document: str | None = None,
+    strategy: str | None = None,
+) -> list[dict]:
+    """
+    Case-insensitive exact substring match of the query's exact terms
+    (quoted phrases + identifiers) over the chunk texts stored with the
+    BM25 index. Score = share of exact terms a chunk contains, multi-word
+    phrases weighted by word count. Returns [{id, score, rank, matched}].
+    Unlike BM25 nothing is tokenized, so "v2.1" or a multi-word phrase
+    has to appear exactly as written. Returns [] when the query has no
+    exact terms, so plain natural-language queries are unaffected.
+    """
+    terms = extract_exact_terms(query)
+    if not terms:
+        return []
+
+    bm = chunking.load_bm25()
+    total_weight = sum(len(t.split()) for t in terms)
+    # whole-word match, so "nasa" won't hit inside "nasal"
+    patterns = {t: re.compile(rf"(?<!\w){re.escape(t)}(?!\w)") for t in terms}
+    hits = []
+    for cid, text in zip(bm["ids"], bm["texts"]):
+        parts = cid.split("::")
+        if filter_document and parts[0] != filter_document:
+            continue
+        if strategy and strategy.lower() != "all" and (len(parts) < 2 or parts[1] != strategy):
+            continue
+        lowered = text.lower()
+        matched = [t for t, rx in patterns.items() if rx.search(lowered)]
+        if matched:
+            hits.append((cid, sum(len(t.split()) for t in matched) / total_weight, matched))
+
+    hits.sort(key=lambda h: h[1], reverse=True)
+    return [
+        {"id": cid, "score": score, "rank": rank, "matched": matched}
+        for rank, (cid, score, matched) in enumerate(hits[:k], start=1)
+    ]
+
+
 # --------------------------------------------------------------- 3) fuse
 def reciprocal_rank_fusion(
     dense_results: list[dict],
@@ -106,6 +173,8 @@ def reciprocal_rank_fusion(
     rrf_k: int = RRF_K,
     dense_weight: float = DENSE_WEIGHT,
     sparse_weight: float = SPARSE_WEIGHT,
+    exact_results: list[dict] | None = None,
+    exact_weight: float = EXACT_WEIGHT,
 ) -> list[dict]:
     """
     RRF score for a chunk = weight * 1 / (rrf_k + rank_in_that_list).
@@ -119,6 +188,10 @@ def reciprocal_rank_fusion(
     dense_weight / sparse_weight make this tunable per use case, e.g. push
     sparse_weight higher for a corpus full of exact config keys and error
     codes, or dense_weight higher for conceptual, paraphrase-heavy queries.
+
+    exact_results is an optional third list from exact_search(). It is
+    only non-empty when the query has quoted phrases / identifiers, so
+    plain natural-language queries keep the original dense+sparse fusion.
     """
  
     fused_scores: dict[str, float] = {}
@@ -128,6 +201,9 @@ def reciprocal_rank_fusion(
  
     for r in sparse_results:
         fused_scores[r["id"]] = fused_scores.get(r["id"], 0.0) + sparse_weight / (rrf_k + r["rank"])
+
+    for r in exact_results or []:
+        fused_scores[r["id"]] = fused_scores.get(r["id"], 0.0) + exact_weight / (rrf_k + r["rank"])
  
     ranked = sorted(fused_scores.items(), key=lambda kv: kv[1], reverse=True)
     return [{"id": cid, "rrf_score": score} for cid, score in ranked]
@@ -161,6 +237,13 @@ def _get_cross_encoder():
     return _cross_encoder
  
  
+def _apply_exact_boost(candidates: list[dict], boost: float = EXACT_MATCH_BOOST) -> None:
+    """Lift chunks that literally contain the query's exact terms above near-ties."""
+    for c in candidates:
+        if c.get("exact_match"):
+            c["rerank_score"] += boost
+
+
 def rerank_cross_encoder(query: str, candidates: list[dict], top_n: int = FINAL_TOP_N) -> list[dict]:
     """
     A cross-encoder reads (query, chunk) TOGETHER through one model and
@@ -176,6 +259,7 @@ def rerank_cross_encoder(query: str, candidates: list[dict], top_n: int = FINAL_
  
     for c, s in zip(candidates, scores):
         c["rerank_score"] = float(s)
+    _apply_exact_boost(candidates)
  
     candidates.sort(key=lambda c: c["rerank_score"], reverse=True)
     return candidates[:top_n]
@@ -207,6 +291,7 @@ def rerank_llm(query: str, candidates: list[dict], top_n: int = FINAL_TOP_N) -> 
         )
         resp.raise_for_status()
         c["rerank_score"] = _extract_score(resp.json()["response"])
+    _apply_exact_boost(candidates)
  
     candidates.sort(key=lambda c: c["rerank_score"], reverse=True)
     return candidates[:top_n]
@@ -229,6 +314,8 @@ def hybrid_retrieve(
     final_top_n: int = FINAL_TOP_N,
     dense_weight: float = DENSE_WEIGHT,
     sparse_weight: float = SPARSE_WEIGHT,
+    exact_weight: float = EXACT_WEIGHT,
+    use_exact: bool = True,
     rerank_method: str = "cross_encoder",
     filter_document: str | None = None,
     strategy: str | None = None,
@@ -241,12 +328,19 @@ def hybrid_retrieve(
     dense_results = dense_search(query, dense_k, filter_document=filter_document, strategy=strategy)
     sparse_results = sparse_search(query, sparse_k, filter_document=filter_document, strategy=strategy)
  
-    fused = reciprocal_rank_fusion(dense_results, sparse_results, dense_weight=dense_weight, sparse_weight=sparse_weight)
+    exact_results = exact_search(query, sparse_k, filter_document=filter_document, strategy=strategy) if use_exact else []
+    exact_ids = {r["id"] for r in exact_results}
+
+    fused = reciprocal_rank_fusion(
+        dense_results, sparse_results,
+        dense_weight=dense_weight, sparse_weight=sparse_weight,
+        exact_results=exact_results, exact_weight=exact_weight,
+    )
     top_fused = fused[:fusion_top_n]
  
     content = hydrate([f["id"] for f in top_fused])
     candidates = [
-        {"id": f["id"], "rrf_score": f["rrf_score"], **content[f["id"]]}
+        {"id": f["id"], "rrf_score": f["rrf_score"], "exact_match": f["id"] in exact_ids, **content[f["id"]]}
         for f in top_fused
         if f["id"] in content  # a stale id would be silently skipped rather than crash
     ]
@@ -263,10 +357,11 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("query")
     p.add_argument("--rerank", choices=["cross_encoder", "llm"], default="cross_encoder")
+    p.add_argument("--no-exact", action="store_true", help="disable the exact-match retriever")
     args = p.parse_args()
- 
-    results = hybrid_retrieve(args.query, rerank_method=args.rerank)
+
+    results = hybrid_retrieve(args.query, rerank_method=args.rerank, use_exact=not args.no_exact)
     print(f"\nTop {len(results)} chunks for: {args.query!r}\n")
     for i, r in enumerate(results, start=1):
-        print(f"{i}. [{r['id']}]  rrf={r['rrf_score']:.4f}  rerank={r['rerank_score']:.3f}")
+        print(f"{i}. [{r['id']}]  rrf={r['rrf_score']:.4f}  rerank={r['rerank_score']:.3f}  exact={r['exact_match']}")
         print(f"   {r['text'][:120]!r}\n")

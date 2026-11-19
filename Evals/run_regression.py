@@ -100,6 +100,9 @@ def main() -> int:
         "chunk_size": 1000,
         "chunk_overlap": 150,
         "rrf_weights": "0.7/0.3",
+        "exact_weight": 0.5,           # retrievals.retrieval.EXACT_WEIGHT
+        "exact_match_boost": 1.0,      # retrievals.retrieval.EXACT_MATCH_BOOST
+        "guardrails": True,            # rag_answer(use_guardrails=True)
         "embedding_model": "nomic-embed-text",
     }
 

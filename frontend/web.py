@@ -434,6 +434,8 @@ with tab_chat:
                                 f"⚠️ **Low Retrieval Confidence ({confidence:.3f} < {retrieval_threshold:.3f})**\n\n"
                                 f"{answer_text or 'The system did not find sufficiently confident evidence in the specified documents to answer this question accurately.'}"
                             )
+                        elif status == "blocked":
+                            st.error(f"🛡️ {answer_text}")
                         else:
                             st.markdown(answer_text)
 
