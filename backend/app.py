@@ -91,10 +91,11 @@ class ConfidenceBreakdown(BaseModel):
 
 class AskResponse(BaseModel):
     query: str
-    status: str = Field(..., description="'answered' or 'insufficient_context'")
+    status: str = Field(..., description="'answered', 'insufficient_context' or 'blocked' (guardrail)")
     answer: Optional[str] = Field(None, description="Generated answer from the LLM.")
     sources: List[SourceChunk] = Field(default_factory=list, description="Retrieved source chunks used as context.")
     confidence: ConfidenceBreakdown
+    guardrails: dict = Field(default_factory=dict, description="Per-stage guardrail report: input / context / output.")
 
 
 class DocumentInfo(BaseModel):
@@ -140,9 +141,11 @@ class UploadDocumentResponse(BaseModel):
 def ask(req: AskRequest) -> AskResponse:
     """
     Core RAG Pipeline:
-    1. Hybrid Retrieval: Queries Chroma (dense) + BM25 (sparse), fuses via RRF, and reranks with Cross-Encoder.
-    2. Guardrail Check: Compares retrieval confidence against retrieval_threshold to avoid hallucination.
+    0. Input Guardrail: blocks prompt injection, redacts PII from the question.
+    1. Hybrid Retrieval: Queries Chroma (dense) + BM25 (sparse) + exact phrase match, fuses via RRF, and reranks with Cross-Encoder.
+    2. Confidence Gate: Compares retrieval confidence against retrieval_threshold to avoid hallucination.
     3. Grounded Generation: Synthesizes a factual answer using the local Ollama LLM.
+    4. Output Guardrail: redacts PII, blocks system-prompt leaks, flags uncited answers.
     """
     # Execute end-to-end RAG
     result = generation_mod.rag_answer(
@@ -181,6 +184,7 @@ def ask(req: AskRequest) -> AskResponse:
         answer=result["answer"],
         sources=sources,
         confidence=confidence,
+        guardrails=result.get("guardrails", {}),
     )
 
 
