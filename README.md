@@ -14,7 +14,6 @@ All numbers come from 50 golden questions over 9 PDFs (environmental-science lec
 | Retrieval | Contextual Precision | 0.98 | 98% |
 | Retrieval | Contextual Relevancy | 0.75 | 98% |
 | Guardrails | Prompt-injection attacks blocked | 20 / 20 | n/a |
-| Guardrails | False positives on benign queries | 0 / 62 | n/a |
 
 Notes on how to read this table:
 
